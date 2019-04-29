@@ -1,4 +1,4 @@
-namespace AnnonsService.Models
+namespace AnnonsService
 {
     using System;
     using System.Collections.Generic;
@@ -6,22 +6,26 @@ namespace AnnonsService.Models
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ServiceStatusType")]
-    public partial class ServiceStatusType
+    [Table("SubCategory")]
+    public partial class SubCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ServiceStatusType()
+        public SubCategory()
         {
-            ServiceStatus = new HashSet<ServiceStatus>();
+            Service = new HashSet<Service>();
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
+
+        public int Parent { get; set; }
 
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Titel { get; set; }
+
+        public virtual Category Category { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceStatus> ServiceStatus { get; set; }
+        public virtual ICollection<Service> Service { get; set; }
     }
 }

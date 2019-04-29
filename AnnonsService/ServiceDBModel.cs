@@ -1,18 +1,19 @@
-namespace AnnonsService.Models
+namespace AnnonsService
 {
     using System;
     using System.Data.Entity;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class ServiceModel : DbContext
+    public partial class ServiceDBModel : DbContext
     {
-        public ServiceModel()
-            : base("name=ServiceModel")
+        public ServiceDBModel()
+            : base("name=ServiceDBModel")
         {
         }
 
         public virtual DbSet<Category> Category { get; set; }
+        public virtual DbSet<Contract> Contract { get; set; }
         public virtual DbSet<Service> Service { get; set; }
         public virtual DbSet<ServiceModifications> ServiceModifications { get; set; }
         public virtual DbSet<ServiceStatus> ServiceStatus { get; set; }
@@ -30,6 +31,10 @@ namespace AnnonsService.Models
                 .WithRequired(e => e.Category)
                 .HasForeignKey(e => e.Parent)
                 .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<Contract>()
+                .Property(e => e.Status)
+                .IsUnicode(false);
 
             modelBuilder.Entity<Service>()
                 .Property(e => e.Type)

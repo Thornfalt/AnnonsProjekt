@@ -1,4 +1,4 @@
-namespace AnnonsService.Models
+namespace AnnonsService
 {
     using System;
     using System.Collections.Generic;

@@ -76,6 +76,7 @@ namespace AnnonsService
         public ServiceStatus ServiceStatus { get; set; }
     }
 
+    [DataContract]
     public class ServiceModifications
     {
         public ServiceModifications(ServiceModificationsData serviceModificationsData)
@@ -97,6 +98,7 @@ namespace AnnonsService
         //public List<Service> ServiceData { get; set; }
     }
 
+    [DataContract]
     public class ServiceType
     {
         public ServiceType(ServiceTypeData serviceTypeData)
@@ -118,6 +120,7 @@ namespace AnnonsService
 
     }
 
+    [DataContract]
     public class SubCategory
     {
         public SubCategory(SubCategoryData subCategoryData)
@@ -141,6 +144,7 @@ namespace AnnonsService
         //public ICollection<ServiceData> ServiceData { get; set; } Behövs den ens?
     }
 
+    [DataContract]
     public class Category
     {
         public Category(CategoryData categoryData)
@@ -157,6 +161,7 @@ namespace AnnonsService
         //public ICollection<SubCategoryData> SubCategoryData { get; set; } Behövs den ens?
     }
 
+    [DataContract]
     public class ServiceStatus
     {
         public ServiceStatus(ServiceStatusData ServiceStatusData)
@@ -183,6 +188,7 @@ namespace AnnonsService
         public ServiceStatusType ServiceStatusType { get; set; }
     }
 
+    [DataContract]
     public class ServiceStatusType
     {
         public ServiceStatusType(ServiceStatusTypeData serviceStatusTypeData)

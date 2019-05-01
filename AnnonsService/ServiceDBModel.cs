@@ -8,7 +8,7 @@ namespace AnnonsService
     public partial class ServiceDBModel : DbContext
     {
         public ServiceDBModel()
-            : base("name=ServiceDBModel1")
+            : base("name=ServiceDBModel")
         {
         }
 

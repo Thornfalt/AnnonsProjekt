@@ -6,26 +6,22 @@ namespace AnnonsService
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("SubCategory")]
-    public partial class SubCategory
+    [Table("ServiceModificationsData")]
+    public partial class ServiceModificationsData
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public SubCategory()
+        public ServiceModificationsData()
         {
-            Service = new HashSet<Service>();
+            ServiceData = new HashSet<ServiceData>();
         }
 
         public int Id { get; set; }
 
-        public int Parent { get; set; }
+        public int UserID { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Titel { get; set; }
-
-        public virtual Category Category { get; set; }
+        public DateTime ActionTime { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Service> Service { get; set; }
+        public virtual ICollection<ServiceData> ServiceData { get; set; }
     }
 }

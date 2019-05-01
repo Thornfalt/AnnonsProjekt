@@ -15,37 +15,18 @@ namespace AnnonsService
         /**
          * Laddar in alla servicar och returnerar dem
          */
-        public List<ServiceData> LoadServices()
+        List<Service> IService1.LoadServices()
         {
-            List<ServiceData> output = new List<ServiceData>();
-
+            List<Service> output = new List<Service>();
             using (ServiceDBModel db = new ServiceDBModel())
             {
-                var services = db.Service.ToList();
-                
+                var services = db.ServiceData.ToList();
                 foreach (var service in services)
                 {
-                    SubCategoryData tempSubCategory = new SubCategoryData();
-                    tempSubCategory.Id = service.SubCategory.Id;
-                    tempSubCategory.Titel = service.SubCategory.Titel;
-                    tempSubCategory.Parent = service.SubCategory.Parent;
-                    //tempSubCategory.Service = service.SubCategory.Service.ToList();
-                    tempSubCategory.Category = service.SubCategory.Category;
-
-
-                    ServiceData tempService = new ServiceData();
-                    tempService.Id = service.Id;
-                    tempService.Title = service.Title;
-                    tempService.Description = service.Description;
-                    tempService.Category = service.Category;
-
-                    tempService.SubCategory = tempSubCategory;
-                    tempService.Type = service.Type;
-
+                    Service tempService = new Service(service);
                     output.Add(tempService);
-                } 
+                }
                 return output;
-
             }
         }
     }

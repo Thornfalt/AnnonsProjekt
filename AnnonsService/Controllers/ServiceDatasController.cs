@@ -39,11 +39,18 @@ namespace AnnonsService.Controllers
         // GET: ServiceDatas/Create
         public ActionResult Create()
         {
-            ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id");
-            ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id");
-            ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name");
-            ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel");
-            return View();
+            if (IsAllowed(1234, "CreateService"))
+            {
+                ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id");
+                ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id");
+                ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name");
+                ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel");
+                return View();
+            } else
+            {
+                return errorview;
+            }
+  
         }
 
         // POST: ServiceDatas/Create
@@ -139,6 +146,11 @@ namespace AnnonsService.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        private bool IsAllowed(int userId, string right)
+        {
+            return true;
         }
     }
 }

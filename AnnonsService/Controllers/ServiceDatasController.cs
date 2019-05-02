@@ -48,7 +48,7 @@ namespace AnnonsService.Controllers
                 return View();
             } else
             {
-                return errorview;
+                return RedirectToAction("Index", "Errorview");
             }
   
         }

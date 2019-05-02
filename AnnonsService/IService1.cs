@@ -10,10 +10,13 @@ namespace AnnonsService
 {
     [ServiceContract]
     public interface IService1
-    { 
+    {
+        // TODO: Add your service operations here
         [OperationContract]
         List<Service> LoadServices();
-        // TODO: Add your service operations here
+        
+        [OperationContract]
+        int GetUserId(int UserId); // Hämta från tjänsten som har hand om user/admin
     }
 
 

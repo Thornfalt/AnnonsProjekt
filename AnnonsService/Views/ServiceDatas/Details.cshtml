@@ -1,0 +1,122 @@
+﻿@model AnnonsService.ServiceData
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>ServiceData</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceModificationsData.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceModificationsData.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceStatusData.Id)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceStatusData.Id)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceTypeData.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceTypeData.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SubCategoryData.Titel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SubCategoryData.Titel)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatorID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatorID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Picture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CreatedTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreatedTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.StartDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.StartDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EndDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EndDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TimeNeeded)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TimeNeeded)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

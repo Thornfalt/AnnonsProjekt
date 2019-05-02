@@ -12,73 +12,82 @@ namespace AnnonsService
         {
         }
 
-        public virtual DbSet<Category> Category { get; set; }
-        public virtual DbSet<Contract> Contract { get; set; }
-        public virtual DbSet<Service> Service { get; set; }
-        public virtual DbSet<ServiceModifications> ServiceModifications { get; set; }
-        public virtual DbSet<ServiceStatus> ServiceStatus { get; set; }
-        public virtual DbSet<ServiceStatusType> ServiceStatusType { get; set; }
-        public virtual DbSet<SubCategory> SubCategory { get; set; }
+        public virtual DbSet<CategoryData> CategoryData { get; set; }
+        public virtual DbSet<ContractData> ContractData { get; set; }
+        public virtual DbSet<ContractStatusTypeData> ContractStatusTypeData { get; set; }
+        public virtual DbSet<ServiceData> ServiceData { get; set; }
+        public virtual DbSet<ServiceModificationsData> ServiceModificationsData { get; set; }
+        public virtual DbSet<ServiceStatusData> ServiceStatusData { get; set; }
+        public virtual DbSet<ServiceStatusTypeData> ServiceStatusTypeData { get; set; }
+        public virtual DbSet<ServiceTypeData> ServiceTypeData { get; set; }
+        public virtual DbSet<SubCategoryData> SubCategoryData { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Category>()
+            modelBuilder.Entity<CategoryData>()
                 .Property(e => e.Titel)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<Category>()
-                .HasMany(e => e.SubCategory)
-                .WithRequired(e => e.Category)
+            modelBuilder.Entity<CategoryData>()
+                .HasMany(e => e.SubCategoryData)
+                .WithRequired(e => e.CategoryData)
                 .HasForeignKey(e => e.Parent)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Contract>()
-                .Property(e => e.Status)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Service>()
-                .Property(e => e.Type)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Service>()
-                .Property(e => e.Picture)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Service>()
-                .Property(e => e.Title)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Service>()
-                .Property(e => e.Description)
-                .IsUnicode(false);
-
-            modelBuilder.Entity<Service>()
-                .HasMany(e => e.ServiceModifications)
-                .WithRequired(e => e.Service)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ServiceStatus>()
-                .HasMany(e => e.Service)
-                .WithRequired(e => e.ServiceStatus)
-                .WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<ServiceStatusType>()
+            modelBuilder.Entity<ContractStatusTypeData>()
                 .Property(e => e.Name)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<ServiceStatusType>()
-                .HasMany(e => e.ServiceStatus)
-                .WithRequired(e => e.ServiceStatusType)
+            modelBuilder.Entity<ServiceData>()
+                .Property(e => e.Picture)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ServiceData>()
+                .Property(e => e.Title)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ServiceData>()
+                .Property(e => e.Description)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ServiceModificationsData>()
+                .HasMany(e => e.ServiceData)
+                .WithOptional(e => e.ServiceModificationsData)
+                .HasForeignKey(e => e.Modified);
+
+            modelBuilder.Entity<ServiceStatusData>()
+                .HasMany(e => e.ServiceData)
+                .WithRequired(e => e.ServiceStatusData)
+                .HasForeignKey(e => e.ServiceStatusID)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<ServiceStatusTypeData>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ServiceStatusTypeData>()
+                .HasMany(e => e.ServiceStatusData)
+                .WithRequired(e => e.ServiceStatusTypeData)
                 .HasForeignKey(e => e.StatusTypeID)
                 .WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<SubCategory>()
+            modelBuilder.Entity<ServiceTypeData>()
+                .Property(e => e.Name)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<ServiceTypeData>()
+                .HasMany(e => e.ServiceData)
+                .WithRequired(e => e.ServiceTypeData)
+                .HasForeignKey(e => e.Type)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<SubCategoryData>()
                 .Property(e => e.Titel)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<SubCategory>()
-                .HasMany(e => e.Service)
-                .WithRequired(e => e.SubCategory)
+            modelBuilder.Entity<SubCategoryData>()
+                .HasMany(e => e.ServiceData)
+                .WithRequired(e => e.SubCategoryData)
                 .HasForeignKey(e => e.Category)
                 .WillCascadeOnDelete(false);
         }

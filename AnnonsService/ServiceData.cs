@@ -6,20 +6,12 @@ namespace AnnonsService
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("Service")]
-    public partial class Service
+    [Table("ServiceData")]
+    public partial class ServiceData
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Service()
-        {
-            ServiceModifications = new HashSet<ServiceModifications>();
-        }
-
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(50)]
-        public string Type { get; set; }
+        public int Type { get; set; }
 
         public int Category { get; set; }
 
@@ -45,11 +37,14 @@ namespace AnnonsService
 
         public bool TimeNeeded { get; set; }
 
-        public virtual SubCategory SubCategory { get; set; }
+        public int? Modified { get; set; }
 
-        public virtual ServiceStatus ServiceStatus { get; set; }
+        public virtual ServiceModificationsData ServiceModificationsData { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceModifications> ServiceModifications { get; set; }
+        public virtual ServiceTypeData ServiceTypeData { get; set; }
+
+        public virtual SubCategoryData SubCategoryData { get; set; }
+
+        public virtual ServiceStatusData ServiceStatusData { get; set; }
     }
 }

@@ -6,16 +6,15 @@ namespace AnnonsService
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ServiceModifications
+    [Table("ContractData")]
+    public partial class ContractData
     {
         public int Id { get; set; }
 
-        public int UserID { get; set; }
+        public int AcceptingUserID { get; set; }
 
-        public DateTime ActionTime { get; set; }
+        public int ServiceID { get; set; }
 
-        public int ServiceId { get; set; }
-
-        public virtual Service Service { get; set; }
+        public int Status { get; set; }
     }
 }

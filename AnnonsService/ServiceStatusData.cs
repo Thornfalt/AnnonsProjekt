@@ -6,22 +6,26 @@ namespace AnnonsService
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    [Table("ServiceStatusType")]
-    public partial class ServiceStatusType
+    [Table("ServiceStatusData")]
+    public partial class ServiceStatusData
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ServiceStatusType()
+        public ServiceStatusData()
         {
-            ServiceStatus = new HashSet<ServiceStatus>();
+            ServiceData = new HashSet<ServiceData>();
         }
 
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Name { get; set; }
+        public int StatusTypeID { get; set; }
+
+        public DateTime FromDate { get; set; }
+
+        public DateTime? ToDate { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ServiceStatus> ServiceStatus { get; set; }
+        public virtual ICollection<ServiceData> ServiceData { get; set; }
+
+        public virtual ServiceStatusTypeData ServiceStatusTypeData { get; set; }
     }
 }

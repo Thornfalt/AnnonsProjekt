@@ -49,6 +49,7 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -74,19 +75,21 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Category.cs" />
-    <Compile Include="Contract.cs" />
-    <Compile Include="Service.cs" />
+    <Compile Include="CategoryData.cs" />
+    <Compile Include="ContractData.cs" />
+    <Compile Include="ContractStatusTypeData.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>
     <Compile Include="IService1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceData.cs" />
     <Compile Include="ServiceDBModel.cs" />
-    <Compile Include="ServiceModifications.cs" />
-    <Compile Include="ServiceStatus.cs" />
-    <Compile Include="ServiceStatusType.cs" />
-    <Compile Include="SubCategory.cs" />
+    <Compile Include="ServiceModificationsData.cs" />
+    <Compile Include="ServiceStatusData.cs" />
+    <Compile Include="ServiceStatusTypeData.cs" />
+    <Compile Include="ServiceTypeData.cs" />
+    <Compile Include="SubCategoryData.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

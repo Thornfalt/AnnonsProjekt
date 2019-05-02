@@ -137,12 +137,13 @@ namespace AnnonsService.Controllers
             int serviceCreatorId = serviceData.CreatorID;
             int userId = GetUserId();
 
-            if (IsAllowed(userId, serviceCreatorId, "EditService"))
+            if (IsAllowed(userId, serviceCreatorId, "DeleteService"))
             {
                 return View(serviceData);
             }
             else
             {
+                //Obs fixa bättre feedback 
                 return HttpNotFound();
             }
               

@@ -36,6 +36,12 @@ namespace AnnonsService
             StartDate = serviceData.StartDate;
             EndDate = serviceData.EndDate;
             TimeNeeded = serviceData.TimeNeeded;
+            SubCategory = new SubCategory(serviceData.SubCategoryData);
+            ServiceModifications = new ServiceModifications(serviceData.ServiceModificationsData);
+            ServiceStatus = new ServiceStatus(serviceData.ServiceStatusData);
+            ServiceType = new ServiceType(serviceData.ServiceTypeData);
+            Modified = serviceData.Modified;
+
         }
 
         [DataMember]

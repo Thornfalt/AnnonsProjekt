@@ -39,18 +39,12 @@ namespace AnnonsService.Controllers
         // GET: ServiceDatas/Create
         public ActionResult Create()
         {
-            if (IsAllowed(1234, "CreateService"))
-            {
-                ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id");
-                ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id");
-                ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name");
-                ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel");
-                return View();
-            } else
-            {
-                return errorview;
-            }
-  
+            ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id");
+            ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id");
+            ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name");
+            ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel");
+            return View();
+
         }
 
         // POST: ServiceDatas/Create
@@ -86,11 +80,25 @@ namespace AnnonsService.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id", serviceData.Modified);
-            ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id", serviceData.ServiceStatusID);
-            ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name", serviceData.Type);
-            ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel", serviceData.Category);
-            return View(serviceData);
+
+            int serviceCreatorId = serviceData.CreatorID;
+            int userId = GetUserId();
+
+            if (IsAllowed(userId, serviceCreatorId, "EditService"))
+            {
+                ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id", serviceData.Modified);
+                ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id", serviceData.ServiceStatusID);
+                ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name", serviceData.Type);
+                ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel", serviceData.Category);
+                return View(serviceData);
+            }
+            else
+            {
+                //Obs fixa bättre feedback 
+                return HttpNotFound();
+                
+            }
+          
         }
 
         // POST: ServiceDatas/Edit/5
@@ -125,7 +133,19 @@ namespace AnnonsService.Controllers
             {
                 return HttpNotFound();
             }
-            return View(serviceData);
+
+            int serviceCreatorId = serviceData.CreatorID;
+            int userId = GetUserId();
+
+            if (IsAllowed(userId, serviceCreatorId, "EditService"))
+            {
+                return View(serviceData);
+            }
+            else
+            {
+                return HttpNotFound();
+            }
+              
         }
 
         // POST: ServiceDatas/Delete/5
@@ -148,9 +168,16 @@ namespace AnnonsService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool IsAllowed(int userId, string right)
+        private bool IsAllowed(int userId, int serviceCreatorId, string right)
         {
-            return true;
+            if (userId == serviceCreatorId) {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+            
         }
     }
 }

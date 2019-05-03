@@ -55,6 +55,6 @@ namespace AnnonsService
                 output.Add(new Service(serviceData));
             }
             return output;
-        }
+        } 
     }
 }

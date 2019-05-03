@@ -13,6 +13,8 @@ namespace AnnonsService
     { 
         [OperationContract]
         List<Service> LoadServices();
+        [OperationContract]
+        List<Service> Search(string searchString);
         // TODO: Add your service operations here
     }
 

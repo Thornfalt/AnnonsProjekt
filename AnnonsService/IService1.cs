@@ -10,14 +10,60 @@ namespace AnnonsService
 {
     [ServiceContract]
     public interface IService1
-    { 
+    {
+        [OperationContract]
+        List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
         List<Service> LoadServices();
         // TODO: Add your service operations here
     }
 
+    [DataContract]
+    public class PriceRange
+    {
+        [DataMember]
+        public double Max { get; set; }
 
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
+        [DataMember]
+        public double Min { get; set; }
+    }
+
+    public class DateRange
+    {
+        [DataMember]
+        public DateTime? Start { get; set; }
+        [DataMember]
+        public DateTime? End { get; set; }
+    }
+
+    [DataContract]
+    public class SearchService
+    {
+        [DataMember]
+        public int CreatorID { get; set; }
+
+        [DataMember]
+        public DateRange CreatedTime { get; set; }
+
+        [DataMember]
+        public string Title { get; set; }
+
+        [DataMember]
+        public string Description { get; set; }
+        [DataMember]
+        public PriceRange Price { get; set; }
+        [DataMember]
+        public DateRange StartDate { get; set; }
+        [DataMember]
+        public DateRange EndDate { get; set; }
+
+        [DataMember]
+        public List<ServiceType> ServiceTypes { get; set; }
+        [DataMember]
+        public List<SubCategory> SubCategories { get; set; }
+        [DataMember]
+        public ServiceStatus ServiceStatus { get; set; }
+    }
     [DataContract]
     public class Service
     {

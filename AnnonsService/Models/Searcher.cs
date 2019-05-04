@@ -105,10 +105,10 @@ namespace AnnonsService.Models
 
         public bool SearchInDatabase(string searchTitle, string searchDescription, string searchSubCategory, string searchCategory, string searchValue)
         {
-            if (searchTitle.ToLower().Contains(searchValue.ToLower()) ||
-            searchDescription.ToLower().Contains(searchValue.ToLower()) ||
-            searchSubCategory.ToLower().Contains(searchValue.ToLower()) ||
-            searchCategory.ToLower().Contains(searchValue.ToLower()))
+            if (SearchInString(searchTitle, searchValue) ||
+            SearchInString(searchDescription, searchValue) ||
+            SearchInString(searchSubCategory, searchValue) ||
+            SearchInString(searchCategory, searchValue))
             {
                 return true;
             }

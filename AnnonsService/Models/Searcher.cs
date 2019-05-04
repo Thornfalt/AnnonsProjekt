@@ -103,6 +103,23 @@ namespace AnnonsService.Models
             return stringToSearch.ToLower().Contains(searchValue.ToLower());
         }
 
+
+        public bool SearchInDatabase(string searchTitle, string searchDescription, string searchSubCategory, string searchCategory, string searchValue)
+        {
+            if (SearchInString(searchTitle, searchValue) ||
+            SearchInString(searchDescription, searchValue) ||
+            SearchInString(searchSubCategory, searchValue) ||
+            SearchInString(searchCategory, searchValue))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
         private bool SearchByDateRange(DateRange dateRange, DateTime? givenDate)
         {
             // Checks if givenDate is within the DateRange

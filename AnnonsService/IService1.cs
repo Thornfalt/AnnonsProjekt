@@ -15,6 +15,8 @@ namespace AnnonsService
         List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
         List<Service> LoadServices();
+        [OperationContract]
+        List<Service> Search(string searchString);
         // TODO: Add your service operations here
     }
 
@@ -46,6 +48,7 @@ namespace AnnonsService
         public DateRange CreatedTime { get; set; }
 
         [DataMember]
+
         public string Title { get; set; }
 
         [DataMember]
@@ -64,6 +67,7 @@ namespace AnnonsService
         [DataMember]
         public ServiceStatus ServiceStatus { get; set; }
     }
+
     [DataContract]
     public class Service
     {

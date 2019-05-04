@@ -134,6 +134,7 @@
     <Compile Include="Models\CategoryData.cs" />
     <Compile Include="Models\ContractData.cs" />
     <Compile Include="Models\ContractStatusTypeData.cs" />
+    <Compile Include="Models\Searcher.cs" />
     <Compile Include="Service1.svc.cs">
       <DependentUpon>Service1.svc</DependentUpon>
     </Compile>

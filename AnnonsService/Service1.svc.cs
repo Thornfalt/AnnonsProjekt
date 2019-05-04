@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AnnonsService.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -35,26 +36,16 @@ namespace AnnonsService
             {
                 using (ServiceDBModel db = new ServiceDBModel())
                 {
-                    var services = db.ServiceData.ToList();
-                    List<ServiceData> foundServices = services.Where(s =>
+                    Searcher searcher = new Searcher();
+                    var searchResults = db.ServiceData
+                    .ToList()
+                    .Where(item =>
                     {
-                        if (s.Title.ToLower().Contains(searchString.ToLower()) ||
-                        s.Description.ToLower().Contains(searchString.ToLower()) || 
-                        s.SubCategoryData.Titel.ToLower().Contains(searchString.ToLower()) ||
-                        s.SubCategoryData.CategoryData.Titel.ToLower().Contains(searchString.ToLower()))
-                        {
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return searcher.
+                        SearchInDatabase(item.Title, item.Description, item.SubCategoryData.Titel, item.SubCategoryData.CategoryData.Titel, searchString);
+
                     }).ToList();
-                    foreach (var foundService in foundServices)
-                    {
-                        Service tempService = new Service(foundService);
-                        output.Add(tempService);
-                    }
+                    output = ServiceDataToService(searchResults);
                     return output;
                 }
             }
@@ -62,6 +53,15 @@ namespace AnnonsService
             return output;
         }
 
+        private List<Service> ServiceDataToService(List<ServiceData> serviceDatas)
+        {
+            List<Service> output = new List<Service>();
 
+            foreach (ServiceData serviceData in serviceDatas)
+            {
+                output.Add(new Service(serviceData));
+            }
+            return output;
+        }
     }
 }

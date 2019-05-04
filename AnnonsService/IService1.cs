@@ -10,7 +10,9 @@ namespace AnnonsService
 {
     [ServiceContract]
     public interface IService1
-    { 
+    {
+        [OperationContract]
+        List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
         List<Service> LoadServices();
         [OperationContract]
@@ -46,6 +48,7 @@ namespace AnnonsService
         public DateRange CreatedTime { get; set; }
 
         [DataMember]
+
         public string Title { get; set; }
 
         [DataMember]
@@ -64,7 +67,7 @@ namespace AnnonsService
         [DataMember]
         public ServiceStatus ServiceStatus { get; set; }
     }
-    // Use a data contract as illustrated in the sample below to add composite types to service operations.
+
     [DataContract]
     public class Service
     {

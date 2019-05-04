@@ -103,6 +103,7 @@ namespace AnnonsService.Models
             return stringToSearch.ToLower().Contains(searchValue.ToLower());
         }
 
+
         public bool SearchInDatabase(string searchTitle, string searchDescription, string searchSubCategory, string searchCategory, string searchValue)
         {
             if (SearchInString(searchTitle, searchValue) ||
@@ -117,6 +118,7 @@ namespace AnnonsService.Models
                 return false;
             }
         }
+
 
         private bool SearchByDateRange(DateRange dateRange, DateTime? givenDate)
         {

@@ -10,6 +10,21 @@ namespace AnnonsService
 
     public class Service1 : IService1
     {
+        public List<Service> AdvancedSearch(SearchService searchService)
+        {
+            List<Service> output = new List<Service>();
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                Searcher searcher = new Searcher();
+                var searchResults = db.ServiceData
+                    .ToList()
+                    .Where(item => searcher.ObjectSearch(item, searchService))
+                    .ToList();
+                output = ServiceDataToService(searchResults);
+
+            }
+                return output;
+        }
 
         /**
          * Laddar in alla servicar och returnerar dem
@@ -53,6 +68,7 @@ namespace AnnonsService
             return output;
         }
 
+
         private List<Service> ServiceDataToService(List<ServiceData> serviceDatas)
         {
             List<Service> output = new List<Service>();
@@ -62,6 +78,7 @@ namespace AnnonsService
                 output.Add(new Service(serviceData));
             }
             return output;
+
         }
     }
 }

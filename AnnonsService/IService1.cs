@@ -20,7 +20,7 @@ namespace AnnonsService
         List<Service> Search(string searchString);
 
         [OperationContract]
-        List<ServiceData> GetAllServiceData();
+        List<Service> GetAllServiceData();
 
         [OperationContract]
         ServiceData GetServiceById(int id);

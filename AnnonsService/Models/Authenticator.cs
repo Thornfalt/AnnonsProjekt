@@ -7,6 +7,7 @@ namespace AnnonsService.Models
 {
     public class Authenticator
     {
+        // hämta användar-id från annan service 
         public int GetUserId()
         {
             int UserId = 1;

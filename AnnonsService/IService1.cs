@@ -14,6 +14,15 @@ namespace AnnonsService
         // TODO: Add your service operations here
         [OperationContract]
         List<Service> LoadServices();
+
+        [OperationContract]
+        List<ServiceData> GetAllServiceData();
+
+        [OperationContract]
+        ServiceData GetServiceById(int id);
+
+        [OperationContract]
+        List<ContractData> GetAllContractData(); 
         
     }
 

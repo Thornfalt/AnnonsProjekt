@@ -28,14 +28,29 @@ namespace AnnonsService
         [OperationContract]
         List<ContractData> GetAllContractData();
 
-
     }
     [DataContract]
-    public class ContractData
+    public class Contract
     {
         [DataMember]
-        public string Title { get; set; }
+        public int Id { get; set; }
+        [DataMember]
+        public int AcceptingUserID { get; set; }
+        [DataMember]
+        public int ServiceID { get; set; }
+        [DataMember]
+        public int Status { get; set; }
     }
+
+    [DataContract]
+    public class ContractStatus
+    {
+        [DataMember]
+        public int Id { get; set; }
+        [DataMember]
+        public string Name { get; set; }
+    }
+
     [DataContract]
     public class PriceRange
     {

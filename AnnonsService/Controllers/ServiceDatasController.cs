@@ -7,11 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AnnonsService;
+using AnnonsService.Models;
 
 namespace AnnonsService.Controllers
 {
     public class ServiceDatasController : Controller
     {
+        Authenticator authenticator = new Authenticator();
+
         private ServiceDBModel db = new ServiceDBModel();
 
         // GET: ServiceDatas
@@ -82,9 +85,9 @@ namespace AnnonsService.Controllers
             }
 
             int serviceCreatorId = serviceData.CreatorID;
-            int userId = GetUserId();
+            int userId = authenticator.GetUserId();
 
-            if (IsAllowed(userId, serviceCreatorId, "EditService"))
+            if (authenticator.IsAllowed(userId, serviceCreatorId, "EditService"))
             {
                 ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id", serviceData.Modified);
                 ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id", serviceData.ServiceStatusID);
@@ -133,11 +136,13 @@ namespace AnnonsService.Controllers
             {
                 return HttpNotFound();
             }
+            
+
 
             int serviceCreatorId = serviceData.CreatorID;
-            int userId = GetUserId();
+            int userId = authenticator.GetUserId();
 
-            if (IsAllowed(userId, serviceCreatorId, "DeleteService"))
+            if (authenticator.IsAllowed(userId, serviceCreatorId, "DeleteService"))
             {
                 return View(serviceData);
             }
@@ -169,16 +174,6 @@ namespace AnnonsService.Controllers
             base.Dispose(disposing);
         }
 
-        private bool IsAllowed(int userId, int serviceCreatorId, string right)
-        {
-            if (userId == serviceCreatorId) {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-            
-        }
+        
     }
 }

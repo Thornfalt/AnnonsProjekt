@@ -15,8 +15,6 @@ namespace AnnonsService
         [OperationContract]
         List<Service> LoadServices();
         
-        [OperationContract]
-        int GetUserId(int UserId); // Hämta från tjänsten som har hand om user/admin
     }
 
 

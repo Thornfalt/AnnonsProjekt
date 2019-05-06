@@ -18,10 +18,24 @@ namespace AnnonsService
         List<Service> LoadServices();
         [OperationContract]
         List<Service> Search(string searchString);
-        // TODO: Add your service operations here
+
+        [OperationContract]
+        List<ServiceData> GetAllServiceData();
+
+        [OperationContract]
+        ServiceData GetServiceById(int id);
+
+        [OperationContract]
+        List<ContractData> GetAllContractData();
+
 
     }
-
+    [DataContract]
+    public class ContractData
+    {
+        [DataMember]
+        public string Title { get; set; }
+    }
     [DataContract]
     public class PriceRange
     {
@@ -32,6 +46,7 @@ namespace AnnonsService
         public double Min { get; set; }
     }
 
+    [DataContract]
     public class DateRange
     {
         [DataMember]

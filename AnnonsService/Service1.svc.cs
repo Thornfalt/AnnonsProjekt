@@ -1,9 +1,13 @@
-﻿using AnnonsService.Models;
+﻿using AnnonsService.Controllers;
+using AnnonsService.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
+
+using System.Data.Entity;
+
 
 namespace AnnonsService
 {
@@ -28,9 +32,29 @@ namespace AnnonsService
         }
 
 
+        ServiceDatasController serviceDatasController = new ServiceDatasController();
+        private ServiceDBModel db = new ServiceDBModel();
+
+        public List<ContractData> GetAllContractData()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<ServiceData> GetAllServiceData()
+        {
+            var serviceData = db.ServiceData.Include(s => s.ServiceModificationsData).Include(s => s.ServiceStatusData).Include(s => s.ServiceTypeData).Include(s => s.SubCategoryData);
+            return serviceData.ToList();
+
+        }
+
+        public ServiceData GetServiceById(int id)
+        {
+            throw new NotImplementedException();
+        }
+
         /**
-         * Laddar in alla servicar och returnerar dem
-         */
+* Laddar in alla servicar och returnerar dem
+*/
         List<Service> IService1.LoadServices()
         {
             List<Service> output = new List<Service>();

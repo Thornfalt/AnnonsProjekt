@@ -7,11 +7,14 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AnnonsService;
+using AnnonsService.Models;
 
 namespace AnnonsService.Controllers
 {
     public class ServiceDatasController : Controller
     {
+        Authenticator authenticator = new Authenticator();
+
         private ServiceDBModel db = new ServiceDBModel();
 
         // GET: ServiceDatas
@@ -44,6 +47,7 @@ namespace AnnonsService.Controllers
             ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name");
             ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel");
             return View();
+
         }
 
         // POST: ServiceDatas/Create
@@ -79,11 +83,25 @@ namespace AnnonsService.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id", serviceData.Modified);
-            ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id", serviceData.ServiceStatusID);
-            ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name", serviceData.Type);
-            ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel", serviceData.Category);
-            return View(serviceData);
+
+            int serviceCreatorId = serviceData.CreatorID;
+            int userId = authenticator.GetUserId();
+
+            if (authenticator.IsAllowed(userId, serviceCreatorId, "EditService"))
+            {
+                ViewBag.Modified = new SelectList(db.ServiceModificationsData, "Id", "Id", serviceData.Modified);
+                ViewBag.ServiceStatusID = new SelectList(db.ServiceStatusData, "Id", "Id", serviceData.ServiceStatusID);
+                ViewBag.Type = new SelectList(db.ServiceTypeData, "Id", "Name", serviceData.Type);
+                ViewBag.Category = new SelectList(db.SubCategoryData, "Id", "Titel", serviceData.Category);
+                return View(serviceData);
+            }
+            else
+            {
+                //Obs fixa bättre feedback 
+                return HttpNotFound();
+                
+            }
+          
         }
 
         // POST: ServiceDatas/Edit/5
@@ -118,7 +136,22 @@ namespace AnnonsService.Controllers
             {
                 return HttpNotFound();
             }
-            return View(serviceData);
+            
+
+
+            int serviceCreatorId = serviceData.CreatorID;
+            int userId = authenticator.GetUserId();
+
+            if (authenticator.IsAllowed(userId, serviceCreatorId, "DeleteService"))
+            {
+                return View(serviceData);
+            }
+            else
+            {
+                //Obs fixa bättre feedback 
+                return HttpNotFound();
+            }
+              
         }
 
         // POST: ServiceDatas/Delete/5
@@ -140,5 +173,7 @@ namespace AnnonsService.Controllers
             }
             base.Dispose(disposing);
         }
+
+        
     }
 }

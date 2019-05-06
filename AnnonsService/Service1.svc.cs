@@ -10,6 +10,7 @@ namespace AnnonsService
 
     public class Service1 : IService1
     {
+
         public List<Service> AdvancedSearch(SearchService searchService)
         {
             List<Service> output = new List<Service>();
@@ -25,6 +26,7 @@ namespace AnnonsService
             }
                 return output;
         }
+
 
         /**
          * Laddar in alla servicar och returnerar dem
@@ -43,6 +45,7 @@ namespace AnnonsService
                 return output;
             }
         }
+
 
         public List<Service> Search(string searchString)
         {
@@ -80,5 +83,7 @@ namespace AnnonsService
             return output;
 
         }
+
     }
+
 }

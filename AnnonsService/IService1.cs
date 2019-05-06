@@ -11,6 +11,7 @@ namespace AnnonsService
     [ServiceContract]
     public interface IService1
     {
+
         [OperationContract]
         List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
@@ -18,6 +19,7 @@ namespace AnnonsService
         [OperationContract]
         List<Service> Search(string searchString);
         // TODO: Add your service operations here
+
     }
 
     [DataContract]

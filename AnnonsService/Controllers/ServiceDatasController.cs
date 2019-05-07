@@ -113,7 +113,7 @@ namespace AnnonsService.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(serviceData).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(serviceData).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

@@ -25,7 +25,7 @@ namespace AnnonsService
                     .ToList()
                     .Where(item => searcher.ObjectSearch(item, searchService))
                     .ToList();
-                output = ServiceDataToService(searchResults);
+                output = ServiceDataListToServiceList(searchResults);
 
             }
                 return output;
@@ -40,16 +40,50 @@ namespace AnnonsService
             throw new NotImplementedException();
         }
 
-        public List<ServiceData> GetAllServiceData()
+        public List<Service> GetAllServiceData()
         {
-            var serviceData = db.ServiceData.Include(s => s.ServiceModificationsData).Include(s => s.ServiceStatusData).Include(s => s.ServiceTypeData).Include(s => s.SubCategoryData);
-            return serviceData.ToList();
+            var services = db.ServiceData
+                .Include(s => s.ServiceModificationsData)
+                .Include(s => s.ServiceStatusData)
+                .Include(s => s.ServiceTypeData)
+                .Include(s => s.SubCategoryData).ToList();
 
+            List<Service> output = new List<Service>();
+            output = ServiceDataListToServiceList(services);
+
+            return output;
         }
 
-        public ServiceData GetServiceById(int id)
+        public Service GetServiceById(int id)
         {
-            throw new NotImplementedException();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+
+                var serviceData = db.ServiceData
+                .ToList()
+                .Where( item => item.Id == id)
+                .ToList();
+
+                if (serviceData.Count == 1)
+                {
+                    Service output = ServiceDataObjectToService(serviceData[0]);
+
+                    if (serviceData == null)
+                    {
+                        return null;
+                    }
+
+                    return output;
+                }
+
+                else
+                {
+                    return null;
+                }
+
+            }
+
         }
 
         /**
@@ -87,7 +121,7 @@ namespace AnnonsService
                         SearchInDatabase(item.Title, item.Description, item.SubCategoryData.Titel, item.SubCategoryData.CategoryData.Titel, searchString);
 
                     }).ToList();
-                    output = ServiceDataToService(searchResults);
+                    output = ServiceDataListToServiceList(searchResults);
                     return output;
                 }
             }
@@ -96,7 +130,7 @@ namespace AnnonsService
         }
 
 
-        private List<Service> ServiceDataToService(List<ServiceData> serviceDatas)
+        private List<Service> ServiceDataListToServiceList(List<ServiceData> serviceDatas)
         {
             List<Service> output = new List<Service>();
 
@@ -108,6 +142,46 @@ namespace AnnonsService
 
         }
 
+        private Service ServiceDataObjectToService(ServiceData serviceData)
+        {
+
+            Service output = new Service(serviceData);
+            
+            return output;
+
+        }
+
+        List<Contract> IService1.GetAllContractData()
+        {
+            throw new NotImplementedException();
+        }
+
+        //Inte färdigt
+        public bool CreateService(Service service)
+        {
+
+            ServiceData serviceData = new ServiceData(service);
+
+            db.ServiceData.Add(serviceData);
+            db.SaveChanges();
+            return true;
+            
+
+            throw new NotImplementedException();
+        }
+
+        public bool EditService(Service service)
+        {
+       
+
+            throw new NotImplementedException();
+        }
+
+        public bool DeleteService(int id)
+        {
+
+            throw new NotImplementedException();
+        }
     }
 
 }

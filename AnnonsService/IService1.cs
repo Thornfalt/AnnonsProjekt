@@ -23,10 +23,19 @@ namespace AnnonsService
         List<Service> GetAllServiceData();
 
         [OperationContract]
-        ServiceData GetServiceById(int id);
+        Service GetServiceById(int id);
 
         [OperationContract]
-        List<ContractData> GetAllContractData();
+        List<Contract> GetAllContractData();
+
+        [OperationContract]
+        bool CreateService(Service service);
+
+        [OperationContract]
+        bool EditService(Service service);
+
+        [OperationContract]
+        bool DeleteService(int id);
 
     }
     [DataContract]

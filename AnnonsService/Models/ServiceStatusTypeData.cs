@@ -9,10 +9,21 @@ namespace AnnonsService
     [Table("ServiceStatusTypeData")]
     public partial class ServiceStatusTypeData
     {
+        private ServiceStatusType serviceStatusType;
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceStatusTypeData()
         {
             ServiceStatusData = new HashSet<ServiceStatusData>();
+        }
+
+        public ServiceStatusTypeData(ServiceStatusType serviceStatusType)
+        {
+            if (serviceStatusType != null)
+            {
+                this.serviceStatusType = serviceStatusType;
+            }
+     
         }
 
         public int Id { get; set; }

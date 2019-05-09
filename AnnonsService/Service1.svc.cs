@@ -32,8 +32,7 @@ namespace AnnonsService
         }
 
 
-        ServiceDatasController serviceDatasController = new ServiceDatasController();
-        private ServiceDBModel db = new ServiceDBModel();
+
 
         public List<ContractData> GetAllContractData()
         {
@@ -42,27 +41,28 @@ namespace AnnonsService
 
         public List<Service> GetAllServiceData()
         {
-            var services = db.ServiceData
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                var services = db.ServiceData
                 .Include(s => s.ServiceModificationsData)
                 .Include(s => s.ServiceStatusData)
                 .Include(s => s.ServiceTypeData)
                 .Include(s => s.SubCategoryData).ToList();
 
-            List<Service> output = new List<Service>();
-            output = ServiceDataListToServiceList(services);
+                List<Service> output = new List<Service>();
+                output = ServiceDataListToServiceList(services);
 
-            return output;
+                return output;
+            }
         }
 
         public Service GetServiceById(int id)
         {
-
             using (ServiceDBModel db = new ServiceDBModel())
             {
-
                 var serviceData = db.ServiceData
                 .ToList()
-                .Where( item => item.Id == id)
+                .Where(item => item.Id == id)
                 .ToList();
 
                 if (serviceData.Count == 1)
@@ -81,6 +81,7 @@ namespace AnnonsService
                 {
                     return null;
                 }
+                
 
             }
 
@@ -157,17 +158,40 @@ namespace AnnonsService
         }
 
         //Inte färdigt
-        public bool CreateService(Service service)
+        public bool CreateService(
+            int type, 
+            int creatorId, 
+            int serviceStatusId, 
+            string picture, 
+            string title,
+            string description, 
+            double price, 
+            DateTime? startDate, 
+            DateTime? endDate, 
+            bool timeNeeded, 
+            int subCategoryId
+        )
         {
 
-            ServiceData serviceData = new ServiceData(service);
+            DateTime createdTime = new DateTime();
 
-            db.ServiceData.Add(serviceData);
-            db.SaveChanges();
-            return true;
-            
+            ServiceData serviceData = new ServiceData(type, subCategoryId, creatorId, serviceStatusId, picture, createdTime, title, description, price, startDate, endDate, timeNeeded);
 
-            throw new NotImplementedException();
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    db.ServiceData.Add(serviceData);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception e)
+                {
+
+                    throw e;
+
+                }
+            }
         }
 
         public bool EditService(Service service)

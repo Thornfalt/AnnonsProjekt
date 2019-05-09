@@ -9,6 +9,7 @@ namespace AnnonsService
     [Table("ServiceData")]
     public partial class ServiceData
     {
+
         public ServiceData()
         {
 
@@ -32,6 +33,40 @@ namespace AnnonsService
             ServiceTypeData = new ServiceTypeData(service.ServiceType);
             SubCategoryData = new SubCategoryData(service.SubCategory);
             ServiceStatusData = new ServiceStatusData(service.ServiceStatus);
+        }
+
+        public ServiceData(int type, int subCategoryId, int creatorId, int serviceStatusId, string picture, DateTime createdTime, string title, string description, double price, DateTime? startDate, DateTime? endDate, bool timeNeeded)
+        {
+            if (endDate != null)
+            {
+                EndDate = endDate;
+
+            } else
+            {
+                EndDate = null;
+            }
+
+            if (startDate != null)
+            {
+                StartDate = startDate;
+
+            }
+            else
+            {
+                StartDate = null;
+            }
+
+
+            Type = type;
+            Category = subCategoryId;
+            CreatorID = creatorId;
+            ServiceStatusID = serviceStatusId;
+            Picture = picture;
+            CreatedTime = createdTime;
+            Title = title;
+            Description = description;
+            Price = price;
+            TimeNeeded = timeNeeded;
         }
 
         public int Id { get; set; }

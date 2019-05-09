@@ -8,9 +8,9 @@ namespace AnnonsService.Models
     public class Authenticator
     {
         // hämta användar-id från annan service 
-        public int GetUserId()
+        public int GetUserId(int UserId)
         {
-            int UserId = 1;
+            
             return UserId;
         }
         public bool IsAllowed(int userId, int serviceCreatorId, string right)

@@ -13,19 +13,26 @@ namespace AnnonsService
     {
 
         [OperationContract]
+
         List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "LoadServices", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<Service> LoadServices();
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "Search/{searchString}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<Service> Search(string searchString);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllServiceData", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<ServiceData> GetAllServiceData();
 
         [OperationContract]
+        // GetServiceById kanske inte funkar eftersom den inte var implementerad när jag gjorde detta!
+        [WebInvoke(Method = "GET", UriTemplate = "GetServiceById/?id={id}", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         ServiceData GetServiceById(int id);
 
         [OperationContract]
+        [WebInvoke(Method = "GET", UriTemplate = "GetAllContractData", RequestFormat = WebMessageFormat.Json, ResponseFormat = WebMessageFormat.Json, BodyStyle = WebMessageBodyStyle.Wrapped)]
         List<ContractData> GetAllContractData();
 
     }

@@ -90,7 +90,7 @@ namespace AnnonsService
         /**
 * Laddar in alla servicar och returnerar dem
 */
-        List<Service> IService1.LoadServices()
+        List<Service> IService1.LoadServices() // TODO: Ta bort?
         {
             List<Service> output = new List<Service>();
             using (ServiceDBModel db = new ServiceDBModel())
@@ -173,7 +173,8 @@ namespace AnnonsService
         )
         {
 
-            DateTime createdTime = new DateTime();
+            DateTime createdTime = DateTime.Now;
+
 
             ServiceData serviceData = new ServiceData(type, subCategoryId, creatorId, serviceStatusId, picture, createdTime, title, description, price, startDate, endDate, timeNeeded);
 

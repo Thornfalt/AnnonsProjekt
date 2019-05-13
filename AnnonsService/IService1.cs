@@ -178,11 +178,15 @@ namespace AnnonsService
     {
         public ServiceModifications(ServiceModificationsData serviceModificationsData)
         {
-            Id = serviceModificationsData.Id;
-            UserID = serviceModificationsData.UserID;
-            ActionTime = serviceModificationsData.ActionTime;
-            //ServiceData = serviceModificationsData.ServiceData;
-            // TODO: Fixa den här, ska den vara list? Ska den bara vara en service? Behövs den ens?
+            if (serviceModificationsData != null)
+            {
+                Id = serviceModificationsData.Id;
+                UserID = serviceModificationsData.UserID;
+                ActionTime = serviceModificationsData.ActionTime;
+                //ServiceData = serviceModificationsData.ServiceData;
+                // TODO: Fixa den här, ska den vara list? Ska den bara vara en service? Behövs den ens?
+            }
+
         }
 
         [DataMember]

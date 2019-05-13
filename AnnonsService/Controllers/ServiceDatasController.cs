@@ -72,9 +72,9 @@ namespace AnnonsService.Controllers
         }
 
         // GET: ServiceDatas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int id)
         {
-            if (id == null)
+            if (id == null && id != 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -85,7 +85,7 @@ namespace AnnonsService.Controllers
             }
 
             int serviceCreatorId = serviceData.CreatorID;
-            int userId = authenticator.GetUserId();
+            int userId = authenticator.GetUserId(id); // TODO: Vad gör denna?
 
             if (authenticator.IsAllowed(userId, serviceCreatorId, "EditService"))
             {
@@ -125,7 +125,7 @@ namespace AnnonsService.Controllers
         }
 
         // GET: ServiceDatas/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(int id)
         {
             if (id == null)
             {
@@ -140,7 +140,7 @@ namespace AnnonsService.Controllers
 
 
             int serviceCreatorId = serviceData.CreatorID;
-            int userId = authenticator.GetUserId();
+            int userId = authenticator.GetUserId(id);
 
             if (authenticator.IsAllowed(userId, serviceCreatorId, "DeleteService"))
             {

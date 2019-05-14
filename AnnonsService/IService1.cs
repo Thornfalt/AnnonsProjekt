@@ -20,13 +20,22 @@ namespace AnnonsService
         List<Service> Search(string searchString);
 
         [OperationContract]
-        List<ServiceData> GetAllServiceData();
+        List<Service> GetAllServiceData();
 
         [OperationContract]
-        ServiceData GetServiceById(int id);
+        Service GetServiceById(int id);
 
         [OperationContract]
-        List<ContractData> GetAllContractData();
+        List<Contract> GetAllContractData();
+
+        [OperationContract]
+        bool CreateService(int type,int creatorId,int serviceStatusId,string picture,string title,string description,double price,DateTime? startDate,DateTime? endDate,bool timeNeeded,int subCategoryId);
+
+        [OperationContract]
+        bool EditService(Service service);
+
+        [OperationContract]
+        bool DeleteService(int id);
 
     }
     [DataContract]
@@ -169,11 +178,15 @@ namespace AnnonsService
     {
         public ServiceModifications(ServiceModificationsData serviceModificationsData)
         {
-            Id = serviceModificationsData.Id;
-            UserID = serviceModificationsData.UserID;
-            ActionTime = serviceModificationsData.ActionTime;
-            //ServiceData = serviceModificationsData.ServiceData;
-            // TODO: Fixa den här, ska den vara list? Ska den bara vara en service? Behövs den ens?
+            if (serviceModificationsData != null)
+            {
+                Id = serviceModificationsData.Id;
+                UserID = serviceModificationsData.UserID;
+                ActionTime = serviceModificationsData.ActionTime;
+                //ServiceData = serviceModificationsData.ServiceData;
+                // TODO: Fixa den här, ska den vara list? Ska den bara vara en service? Behövs den ens?
+            }
+
         }
 
         [DataMember]

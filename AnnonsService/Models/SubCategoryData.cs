@@ -9,6 +9,15 @@ namespace AnnonsService
     [Table("SubCategoryData")]
     public partial class SubCategoryData
     {
+        public SubCategoryData(SubCategory subCategory)
+        {
+            if (subCategory != null)
+            {
+                Id = subCategory.Id;
+                Parent = subCategory.Parent;
+            }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public SubCategoryData()
         {

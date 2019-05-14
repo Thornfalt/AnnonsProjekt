@@ -9,6 +9,16 @@ namespace AnnonsService
     [Table("ServiceTypeData")]
     public partial class ServiceTypeData
     {
+        public ServiceTypeData(ServiceType serviceType)
+        {
+            if (serviceType != null)
+            {
+                Id = serviceType.Id;
+                Name = serviceType.Name;
+            }
+           
+        } 
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ServiceTypeData()
         {

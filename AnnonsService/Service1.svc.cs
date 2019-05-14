@@ -186,6 +186,44 @@ namespace AnnonsService
                     db.SaveChanges();
                     return true;
                 }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool EditService(
+            int id,
+            int type,
+            int serviceStatusId,
+            string picture,
+            string title,
+            string description,
+            double price,
+            DateTime? startDate,
+            DateTime? endDate,
+            bool timeNeeded,
+            int subCategoryId)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    ServiceData foundService = db.ServiceData.Find(id);
+                    foundService.Type = type;
+                    foundService.ServiceStatusID = serviceStatusId;
+                    foundService.Picture = picture;
+                    foundService.Title = title;
+                    foundService.Description = description;
+                    foundService.Price = price;
+                    foundService.StartDate = startDate;
+                    foundService.EndDate = endDate;
+                    foundService.TimeNeeded = timeNeeded;
+                    foundService.Category = subCategoryId;
+                    db.SaveChanges();
+                    return true;
+                }
                 catch (Exception e)
                 {
 
@@ -193,13 +231,6 @@ namespace AnnonsService
 
                 }
             }
-        }
-
-        public bool EditService(Service service)
-        {
-       
-
-            throw new NotImplementedException();
         }
 
         public bool DeleteService(int id)

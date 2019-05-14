@@ -21,6 +21,18 @@ namespace AnnonsService
         List<SubCategory> GetSubCategories();
 
         [OperationContract]
+        List<Category> GetCategories();
+
+        [OperationContract]
+        bool CreateCategory(string title);
+
+        [OperationContract]
+        bool EditCategory(int id, string title);
+
+        [OperationContract]
+        bool DeleteCategory(int id);
+
+        [OperationContract]
         bool CreateSubCategory(int parentId, string title);
 
         [OperationContract]

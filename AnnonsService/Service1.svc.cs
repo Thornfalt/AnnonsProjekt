@@ -362,5 +362,79 @@ namespace AnnonsService
 
             }
         }
+
+        public List<Category> GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<CategoryData> temp = db.CategoryData.ToList();
+
+                foreach (CategoryData item in temp)
+                {
+                    categories.Add(new Category(item));
+                }
+            }
+            return categories;
+        }
+
+        public bool CreateCategory(string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryData = new CategoryData();
+                    categoryData.Titel = title;
+                    db.CategoryData.Add(categoryData);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool EditCategory(int id, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryData = db.CategoryData.Find(id);
+                    categoryData.Titel = title;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool DeleteCategory(int id)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryToRemove = db.CategoryData.Find(id);
+                    db.CategoryData.Remove(categoryToRemove);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

@@ -15,6 +15,7 @@ namespace AnnonsService
     public class Service1 : IService1
     {
 
+
         public List<Service> AdvancedSearch(SearchService searchService)
         {
             List<Service> output = new List<Service>();
@@ -28,7 +29,7 @@ namespace AnnonsService
                 output = ServiceDataListToServiceList(searchResults);
 
             }
-                return output;
+            return output;
         }
 
 
@@ -81,7 +82,7 @@ namespace AnnonsService
                 {
                     return null;
                 }
-                
+
 
             }
 
@@ -109,7 +110,7 @@ namespace AnnonsService
         public List<Service> Search(string searchString)
         {
             List<Service> output = new List<Service>();
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 using (ServiceDBModel db = new ServiceDBModel())
                 {
@@ -147,7 +148,7 @@ namespace AnnonsService
         {
 
             Service output = new Service(serviceData);
-            
+
             return output;
 
         }
@@ -159,16 +160,16 @@ namespace AnnonsService
 
         //Inte färdigt
         public bool CreateService(
-            int type, 
-            int creatorId, 
-            int serviceStatusId, 
-            string picture, 
+            int type,
+            int creatorId,
+            int serviceStatusId,
+            string picture,
             string title,
-            string description, 
-            double price, 
-            DateTime? startDate, 
-            DateTime? endDate, 
-            bool timeNeeded, 
+            string description,
+            double price,
+            DateTime? startDate,
+            DateTime? endDate,
+            bool timeNeeded,
             int subCategoryId
         )
         {
@@ -254,6 +255,186 @@ namespace AnnonsService
 
 
         }
-    }
 
+        public List<ServiceType> GetTypes()
+        {
+            List<ServiceType> serviceTypes = new List<ServiceType>();
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<ServiceTypeData> temp = db.ServiceTypeData.ToList();
+
+                foreach (ServiceTypeData item in temp)
+                {
+                    serviceTypes.Add(new ServiceType(item));
+                }
+            }
+            return serviceTypes;
+        }
+
+        public List<ServiceStatusType> GetServiceStatusTypes()
+        {
+            List<ServiceStatusType> serviceStatuses = new List<ServiceStatusType>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<ServiceStatusTypeData> temp = db.ServiceStatusTypeData.ToList();
+
+                foreach (ServiceStatusTypeData item in temp)
+                {
+                    serviceStatuses.Add(new ServiceStatusType(item));
+                }
+            }
+            return serviceStatuses;
+        }
+
+        public List<SubCategory> GetSubCategories()
+        {
+            List<SubCategory> subCategories = new List<SubCategory>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<SubCategoryData> temp = db.SubCategoryData.ToList();
+
+                foreach (SubCategoryData item in temp)
+                {
+                    subCategories.Add(new SubCategory(item));
+                }
+            }
+            return subCategories;
+        }
+
+        public bool CreateSubCategory(int parentId, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryData = new SubCategoryData();
+                    subCategoryData.Parent = parentId;
+                    subCategoryData.Titel = title;
+                    db.SubCategoryData.Add(subCategoryData);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool DeleteSubCategory(int id)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryDataToRemove = db.SubCategoryData.Find(id);
+                    db.SubCategoryData.Remove(subCategoryDataToRemove);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool EditSubCategory(int id, int parentId, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryData = db.SubCategoryData.Find(id);
+                    subCategoryData.Parent = parentId;
+                    subCategoryData.Titel = title;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public List<Category> GetCategories()
+        {
+            List<Category> categories = new List<Category>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<CategoryData> temp = db.CategoryData.ToList();
+
+                foreach (CategoryData item in temp)
+                {
+                    categories.Add(new Category(item));
+                }
+            }
+            return categories;
+        }
+
+        public bool CreateCategory(string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryData = new CategoryData();
+                    categoryData.Titel = title;
+                    db.CategoryData.Add(categoryData);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool EditCategory(int id, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryData = db.CategoryData.Find(id);
+                    categoryData.Titel = title;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool DeleteCategory(int id)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    CategoryData categoryToRemove = db.CategoryData.Find(id);
+                    db.CategoryData.Remove(categoryToRemove);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+    }
 }

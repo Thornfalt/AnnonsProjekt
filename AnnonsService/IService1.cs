@@ -18,6 +18,18 @@ namespace AnnonsService
         List<ServiceStatusType> GetServiceStatusTypes();
 
         [OperationContract]
+        List<SubCategory> GetSubCategories();
+
+        [OperationContract]
+        bool CreateSubCategory(int parentId, string title);
+
+        [OperationContract]
+        bool DeleteSubCategory(int id);
+
+        [OperationContract]
+        bool EditSubCategory(int id, int parentId, string title);
+
+        [OperationContract]
         List<Service> AdvancedSearch(SearchService searchService);
         [OperationContract]
         List<Service> LoadServices();

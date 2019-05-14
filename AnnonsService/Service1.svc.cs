@@ -14,7 +14,7 @@ namespace AnnonsService
 
     public class Service1 : IService1
     {
-   
+
 
         public List<Service> AdvancedSearch(SearchService searchService)
         {
@@ -29,7 +29,7 @@ namespace AnnonsService
                 output = ServiceDataListToServiceList(searchResults);
 
             }
-                return output;
+            return output;
         }
 
 
@@ -82,7 +82,7 @@ namespace AnnonsService
                 {
                     return null;
                 }
-                
+
 
             }
 
@@ -110,7 +110,7 @@ namespace AnnonsService
         public List<Service> Search(string searchString)
         {
             List<Service> output = new List<Service>();
-            if(!String.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 using (ServiceDBModel db = new ServiceDBModel())
                 {
@@ -148,7 +148,7 @@ namespace AnnonsService
         {
 
             Service output = new Service(serviceData);
-            
+
             return output;
 
         }
@@ -160,16 +160,16 @@ namespace AnnonsService
 
         //Inte färdigt
         public bool CreateService(
-            int type, 
-            int creatorId, 
-            int serviceStatusId, 
-            string picture, 
+            int type,
+            int creatorId,
+            int serviceStatusId,
+            string picture,
             string title,
-            string description, 
-            double price, 
-            DateTime? startDate, 
-            DateTime? endDate, 
-            bool timeNeeded, 
+            string description,
+            double price,
+            DateTime? startDate,
+            DateTime? endDate,
+            bool timeNeeded,
             int subCategoryId
         )
         {
@@ -286,6 +286,81 @@ namespace AnnonsService
             }
             return serviceStatuses;
         }
-    }
 
+        public List<SubCategory> GetSubCategories()
+        {
+            List<SubCategory> subCategories = new List<SubCategory>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<SubCategoryData> temp = db.SubCategoryData.ToList();
+
+                foreach (SubCategoryData item in temp)
+                {
+                    subCategories.Add(new SubCategory(item));
+                }
+            }
+            return subCategories;
+        }
+
+        public bool CreateSubCategory(int parentId, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryData = new SubCategoryData();
+                    subCategoryData.Parent = parentId;
+                    subCategoryData.Titel = title;
+                    db.SubCategoryData.Add(subCategoryData);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+
+        public bool DeleteSubCategory(int id)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryDataToRemove = db.SubCategoryData.Find(id);
+                    db.SubCategoryData.Remove(subCategoryDataToRemove);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool EditSubCategory(int id, int parentId, string title)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    SubCategoryData subCategoryData = db.SubCategoryData.Find(id);
+                    subCategoryData.Parent = parentId;
+                    subCategoryData.Titel = title;
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+
+            }
+        }
+    }
 }

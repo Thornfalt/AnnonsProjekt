@@ -32,7 +32,17 @@ namespace AnnonsService
         bool CreateService(int type,int creatorId,int serviceStatusId,string picture,string title,string description,double price,DateTime? startDate,DateTime? endDate,bool timeNeeded,int subCategoryId);
 
         [OperationContract]
-        bool EditService(Service service);
+        bool EditService(int id,
+            int type,
+            int serviceStatusId,
+            string picture,
+            string title,
+            string description,
+            double price,
+            DateTime? startDate,
+            DateTime? endDate,
+            bool timeNeeded,
+            int subCategoryId);
 
         [OperationContract]
         bool DeleteService(int id);

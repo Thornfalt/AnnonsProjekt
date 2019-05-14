@@ -204,8 +204,24 @@ namespace AnnonsService
 
         public bool DeleteService(int id)
         {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    ServiceData foundService = db.ServiceData.Find(id);
+                    db.ServiceData.Remove(foundService);
+                    db.SaveChanges();
+                    return true;
 
-            throw new NotImplementedException();
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+            }
+
+
         }
     }
 

@@ -14,6 +14,7 @@ namespace AnnonsService
 
     public class Service1 : IService1
     {
+   
 
         public List<Service> AdvancedSearch(SearchService searchService)
         {
@@ -253,6 +254,37 @@ namespace AnnonsService
             }
 
 
+        }
+
+        public List<ServiceType> GetTypes()
+        {
+            List<ServiceType> serviceTypes = new List<ServiceType>();
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<ServiceTypeData> temp = db.ServiceTypeData.ToList();
+
+                foreach (ServiceTypeData item in temp)
+                {
+                    serviceTypes.Add(new ServiceType(item));
+                }
+            }
+            return serviceTypes;
+        }
+
+        public List<ServiceStatusType> GetServiceStatusTypes()
+        {
+            List<ServiceStatusType> serviceStatuses = new List<ServiceStatusType>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<ServiceStatusTypeData> temp = db.ServiceStatusTypeData.ToList();
+
+                foreach (ServiceStatusTypeData item in temp)
+                {
+                    serviceStatuses.Add(new ServiceStatusType(item));
+                }
+            }
+            return serviceStatuses;
         }
     }
 

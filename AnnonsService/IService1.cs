@@ -11,6 +11,11 @@ namespace AnnonsService
     [ServiceContract]
     public interface IService1
     {
+        [OperationContract]
+        List<ServiceType> GetTypes();
+
+        [OperationContract]
+        List<ServiceStatusType> GetServiceStatusTypes();
 
         [OperationContract]
         List<Service> AdvancedSearch(SearchService searchService);

@@ -73,23 +73,23 @@ namespace AnnonsService.Models
                     return false;
                 }
             }
-            if (searchService.ServiceStatus != null) // TODO: Naiv sökning. Tar ej hänsyn till to & from-date.
+            if (searchService.ServiceStatusId > 0) // TODO: Naiv sökning. Tar ej hänsyn till to & from-date.
             {
-                if (searchService.ServiceStatus.ServiceStatusType.Name != serviceToSearch.ServiceStatusData.ServiceStatusTypeData.Name)
+                if (searchService.ServiceStatusId != serviceToSearch.ServiceStatusData.ServiceStatusTypeData.Id)
                 {
                     return false;
                 }
             }
-            if (searchService.ServiceTypes.Count > 0)
+            if (searchService.ServiceTypeIds.Count > 0)
             {
-                if (!searchService.ServiceTypes.Contains(new ServiceType(serviceToSearch.ServiceTypeData))) // Casting för att det skall gå att söka
+                if (!searchService.ServiceTypeIds.Contains(serviceToSearch.ServiceTypeData.Id))
                 {
                     return false;
                 }
             }
-            if (searchService.SubCategories.Count > 0)
+            if (searchService.SubCategoryIds.Count > 0)
             {
-                if (!searchService.SubCategories.Contains(new SubCategory(serviceToSearch.SubCategoryData))) // Casting för att det skall gå att söka
+                if (!searchService.SubCategoryIds.Contains(serviceToSearch.SubCategoryData.Id))
                 {
                     return false;
                 }

@@ -170,11 +170,11 @@ namespace AnnonsService
         public DateRange EndDate { get; set; }
 
         [DataMember]
-        public List<ServiceType> ServiceTypes { get; set; }
+        public List<int> ServiceTypeIds { get; set; }
         [DataMember]
-        public List<SubCategory> SubCategories { get; set; }
+        public List<int> SubCategoryIds { get; set; }
         [DataMember]
-        public ServiceStatus ServiceStatus { get; set; }
+        public int ServiceStatusId { get; set; }
     }
 
     [DataContract]

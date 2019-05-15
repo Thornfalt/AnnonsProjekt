@@ -297,7 +297,7 @@ namespace AnnonsService
 
         }
 
-        public bool AcceptContract(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus)
+        public bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus)
         {
             
 
@@ -354,6 +354,31 @@ namespace AnnonsService
                     throw;
                 }
         }
+
+        public bool DeleteContract(int serviceId, int counterpartId, int serviceOwnerId)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+
+                try
+                {
+                    ContractData deleteContract = db.ContractData.Where(item =>
+                    (
+                        item.ServiceId == serviceId &&
+                        item.CounterpartId == counterpartId &&
+                        item.ServiceOwnerId == serviceOwnerId
+                    ))
+                    .FirstOrDefault();
+                    db.ContractData.Remove(deleteContract);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+    
     }
 
 }

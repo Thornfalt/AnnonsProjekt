@@ -15,7 +15,10 @@ namespace AnnonsService
         bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId);
 
         [OperationContract]
-        bool AcceptContract(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);
+        bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);
+
+        [OperationContract]
+        bool DeleteContract(int serviceId, int counterpartId, int serviceOwnerId);
 
         [OperationContract]
         Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId);

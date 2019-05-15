@@ -24,6 +24,7 @@ namespace AnnonsService
         [OperationContract]
         Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId);
 
+        [OperationContract]
         List<ServiceType> GetTypes();
 
         [OperationContract]

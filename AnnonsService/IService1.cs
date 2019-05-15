@@ -12,6 +12,7 @@ namespace AnnonsService
     public interface IService1
     {
         [OperationContract]
+
         bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId);
 
         [OperationContract]
@@ -22,6 +23,36 @@ namespace AnnonsService
 
         [OperationContract]
         Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId);
+
+        List<ServiceType> GetTypes();
+
+        [OperationContract]
+        List<ServiceStatusType> GetServiceStatusTypes();
+
+        [OperationContract]
+        List<SubCategory> GetSubCategories();
+
+        [OperationContract]
+        List<Category> GetCategories();
+
+        [OperationContract]
+        bool CreateCategory(string title);
+
+        [OperationContract]
+        bool EditCategory(int id, string title);
+
+        [OperationContract]
+        bool DeleteCategory(int id);
+
+        [OperationContract]
+        bool CreateSubCategory(int parentId, string title);
+
+        [OperationContract]
+        bool DeleteSubCategory(int id);
+
+        [OperationContract]
+        bool EditSubCategory(int id, int parentId, string title);
+
 
         [OperationContract]
         List<Service> AdvancedSearch(SearchService searchService);

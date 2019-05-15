@@ -127,7 +127,6 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Service1.svc" />
-    <Content Include="testText.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

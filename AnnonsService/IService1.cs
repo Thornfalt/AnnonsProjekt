@@ -12,6 +12,18 @@ namespace AnnonsService
     public interface IService1
     {
         [OperationContract]
+
+        bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId);
+
+        [OperationContract]
+        bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);
+
+        [OperationContract]
+        bool DeleteContract(int serviceId, int counterpartId, int serviceOwnerId);
+
+        [OperationContract]
+        Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId);
+
         List<ServiceType> GetTypes();
 
         [OperationContract]
@@ -41,10 +53,13 @@ namespace AnnonsService
         [OperationContract]
         bool EditSubCategory(int id, int parentId, string title);
 
+
         [OperationContract]
         List<Service> AdvancedSearch(SearchService searchService);
+
         [OperationContract]
         List<Service> LoadServices();
+
         [OperationContract]
         List<Service> Search(string searchString);
 
@@ -80,14 +95,28 @@ namespace AnnonsService
     [DataContract]
     public class Contract
     {
+        public Contract(ContractData contractData)
+        {
+            Id = contractData.Id;
+            ServiceId = contractData.ServiceId;
+            CounterpartId = contractData.CounterpartId;
+            ServiceOwnerId = contractData.ServiceOwnerId;
+            ServiceOwnerStatus = contractData.ServiceOwnerStatus;
+            CounterpartStatus = contractData.CounterpartStatus;
+        }
+        
         [DataMember]
         public int Id { get; set; }
         [DataMember]
-        public int AcceptingUserID { get; set; }
+        public int ServiceId { get; set; }
         [DataMember]
-        public int ServiceID { get; set; }
+        public int CounterpartId { get; set; }
         [DataMember]
-        public int Status { get; set; }
+        public int ServiceOwnerId { get; set; }
+        [DataMember]
+        public int ServiceOwnerStatus { get; set; }
+        [DataMember]
+        public int CounterpartStatus { get; set; }
     }
 
     [DataContract]

@@ -253,8 +253,133 @@ namespace AnnonsService
                 }
             }
 
+        }
+
+        public bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId)
+        {
+            int serviceOwnerStatus = 0;
+            int counterpartStatus = 0;
+
+            if (serviceOwnerId == contractCreatorId)
+            {
+                serviceOwnerStatus = 1;
+
+            } else if (counterpartId==contractCreatorId)
+            {
+                counterpartStatus = 1;
+
+            } else if (counterpartId != contractCreatorId && serviceOwnerId!=contractCreatorId)
+            {
+                return false;
+            }
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                try
+                {
+                    ContractData creatingContract = new ContractData();
+                    creatingContract.ServiceId = serviceId;
+                    creatingContract.ServiceOwnerId = serviceOwnerId;
+                    creatingContract.CounterpartId = counterpartId;
+                    creatingContract.CounterpartStatus = counterpartStatus;
+                    creatingContract.ServiceOwnerStatus = serviceOwnerStatus;
+
+                    db.ContractData.Add(creatingContract);
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+
+                    return false;
+                }
+            }
 
         }
+
+        public bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus)
+        {
+            
+
+            using (ServiceDBModel db = new ServiceDBModel())
+                try
+                {
+                    ContractData acceptingContract = db.ContractData
+                        .Where(item => 
+                        (
+                            item.ServiceId == serviceId &&
+                            item.CounterpartId == counterpartId && 
+                            item.ServiceOwnerId == serviceOwnerId
+                        ))
+                        .FirstOrDefault();
+
+                    if (serviceOwnerStatus != null)
+                    {
+                        acceptingContract.ServiceOwnerStatus = serviceOwnerStatus.GetValueOrDefault();
+                    }
+
+                    if (counterpartStatus != null)
+                    {
+                        acceptingContract.CounterpartStatus = counterpartStatus.GetValueOrDefault();
+                    }
+                    db.SaveChanges();
+                    return true;
+
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }        
+            
+        }
+
+        public Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+                try
+                {
+                    ContractData getContract = db.ContractData.Where(item =>
+                    (
+                        item.ServiceId == serviceId &&
+                        item.CounterpartId == counterpartId &&
+                        item.CounterpartId == counterpartId
+                    ))
+                    .FirstOrDefault();
+                    return new Contract(getContract);
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
+        public bool DeleteContract(int serviceId, int counterpartId, int serviceOwnerId)
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+
+                try
+                {
+                    ContractData deleteContract = db.ContractData.Where(item =>
+                    (
+                        item.ServiceId == serviceId &&
+                        item.CounterpartId == counterpartId &&
+                        item.ServiceOwnerId == serviceOwnerId
+                    ))
+                    .FirstOrDefault();
+                    db.ContractData.Remove(deleteContract);
+                    db.SaveChanges();
+                    return true;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+        }
+
 
         public List<ServiceType> GetTypes()
         {

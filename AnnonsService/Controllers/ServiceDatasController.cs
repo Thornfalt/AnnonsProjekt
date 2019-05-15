@@ -20,6 +20,7 @@ namespace AnnonsService.Controllers
         // GET: ServiceDatas
         public ActionResult Index()
         {
+            
             var serviceData = db.ServiceData.Include(s => s.ServiceModificationsData).Include(s => s.ServiceStatusData).Include(s => s.ServiceTypeData).Include(s => s.SubCategoryData);
             return View(serviceData.ToList());
         }

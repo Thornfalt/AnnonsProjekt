@@ -16,8 +16,23 @@ namespace AnnonsService
     {
 
 
-        public List<Service> AdvancedSearch(SearchService searchService)
+        public List<Service> AdvancedSearch(DateRange createdTime, DateRange startDate, DateRange endDate, int creatorId, string title, string description, PriceRange price,
+           int serviceStatusId, List<int> serviceTypeIds, List<int> subCategoryIds )
         {
+            SearchService searchService = new SearchService();
+            searchService.CreatedTime = createdTime;
+            searchService.StartDate = startDate;
+            searchService.EndDate = endDate;
+            searchService.CreatorID = creatorId;
+            searchService.Title = title;
+            searchService.Description = description;
+            searchService.Price = price;
+            searchService.ServiceStatusId = serviceStatusId;
+            searchService.ServiceTypeIds = serviceTypeIds;
+            searchService.SubCategoryIds = subCategoryIds;
+           
+
+           
             List<Service> output = new List<Service>();
             using (ServiceDBModel db = new ServiceDBModel())
             {

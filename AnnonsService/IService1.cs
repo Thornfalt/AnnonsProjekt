@@ -56,7 +56,8 @@ namespace AnnonsService
 
 
         [OperationContract]
-        List<Service> AdvancedSearch(SearchService searchService);
+        List<Service> AdvancedSearch(DateRange createdTime, DateRange startDate, DateRange endDate, int creatorId, string title, string description, PriceRange price,
+           int serviceStatusId, List<int> serviceTypeIds, List<int> subCategoryIds);
 
         [OperationContract]
         List<Service> LoadServices();

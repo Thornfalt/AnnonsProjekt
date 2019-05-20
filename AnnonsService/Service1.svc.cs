@@ -191,7 +191,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-                    Log.Information("Information");
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -294,7 +294,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-                    Log.Information("Information");
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -332,7 +332,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-                    Log.Information("Information");
+                    Log.Error("Error");
                     return false;
                 }        
             
@@ -446,6 +446,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -466,6 +467,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -485,6 +487,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -521,6 +524,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -540,6 +544,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -560,6 +565,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
             }

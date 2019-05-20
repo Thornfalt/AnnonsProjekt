@@ -153,11 +153,6 @@ namespace AnnonsService
 
         }
 
-        List<Contract> IService1.GetAllContractData()
-        {
-            throw new NotImplementedException();
-        }
-
         //Inte färdigt
         public bool CreateService(
             int type,

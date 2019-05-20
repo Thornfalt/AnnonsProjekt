@@ -71,9 +71,6 @@ namespace AnnonsService
         Service GetServiceById(int id);
 
         [OperationContract]
-        List<Contract> GetAllContractData();
-
-        [OperationContract]
         bool CreateService(int type,int creatorId,int serviceStatusId,string picture,string title,string description,double price,DateTime? startDate,DateTime? endDate,bool timeNeeded,int subCategoryId);
 
         [OperationContract]

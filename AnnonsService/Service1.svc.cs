@@ -265,11 +265,12 @@ namespace AnnonsService
 
         }
 
-        public bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId)
+        public bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId /*, int contractCreatorId*/)
         {
             int serviceOwnerStatus = 0;
             int counterpartStatus = 0;
 
+            /*
             if (serviceOwnerId == contractCreatorId)
             {
                 serviceOwnerStatus = 1;
@@ -281,7 +282,7 @@ namespace AnnonsService
             } else if (counterpartId != contractCreatorId && serviceOwnerId!=contractCreatorId)
             {
                 return false;
-            }
+            }*/
 
             using (ServiceDBModel db = new ServiceDBModel())
             {

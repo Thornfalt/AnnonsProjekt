@@ -13,7 +13,7 @@ namespace AnnonsService
     {
         [OperationContract]
 
-        bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId, int contractCreatorId);
+        bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId /*, int contractCreatorId*/);
 
         [OperationContract]
         bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);
@@ -24,6 +24,7 @@ namespace AnnonsService
         [OperationContract]
         Contract GetContract(int serviceId, int counterpartId, int serviceOwnerId);
 
+        [OperationContract]
         List<ServiceType> GetTypes();
 
         [OperationContract]
@@ -55,7 +56,8 @@ namespace AnnonsService
 
 
         [OperationContract]
-        List<Service> AdvancedSearch(SearchService searchService);
+        List<Service> AdvancedSearch(DateRange createdTime, DateRange startDate, DateRange endDate, int creatorId, string title, string description, PriceRange price,
+           int serviceStatusId, List<int> serviceTypeIds, List<int> subCategoryIds);
 
         [OperationContract]
         List<Service> LoadServices();
@@ -68,9 +70,6 @@ namespace AnnonsService
 
         [OperationContract]
         Service GetServiceById(int id);
-
-        [OperationContract]
-        List<Contract> GetAllContractData();
 
         [OperationContract]
         bool CreateService(int type,int creatorId,int serviceStatusId,string picture,string title,string description,double price,DateTime? startDate,DateTime? endDate,bool timeNeeded,int subCategoryId);
@@ -170,11 +169,11 @@ namespace AnnonsService
         public DateRange EndDate { get; set; }
 
         [DataMember]
-        public List<ServiceType> ServiceTypes { get; set; }
+        public List<int> ServiceTypeIds { get; set; }
         [DataMember]
-        public List<SubCategory> SubCategories { get; set; }
+        public List<int> SubCategoryIds { get; set; }
         [DataMember]
-        public ServiceStatus ServiceStatus { get; set; }
+        public int ServiceStatusId { get; set; }
     }
 
     [DataContract]

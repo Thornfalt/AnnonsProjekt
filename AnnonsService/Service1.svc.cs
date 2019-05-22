@@ -5,13 +5,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Text;
-
 using System.Data.Entity;
-
+using Serilog;
 
 namespace AnnonsService
 {
-
+    
     public class Service1 : IService1
     {
 
@@ -19,6 +18,7 @@ namespace AnnonsService
         public List<Service> AdvancedSearch(DateRange createdTime, DateRange startDate, DateRange endDate, int creatorId, string title, string description, PriceRange price,
            int serviceStatusId, List<int> serviceTypeIds, List<int> subCategoryIds )
         {
+
             SearchService searchService = new SearchService();
             searchService.CreatedTime = createdTime;
             searchService.StartDate = startDate;
@@ -31,6 +31,7 @@ namespace AnnonsService
             searchService.ServiceTypeIds = serviceTypeIds;
             searchService.SubCategoryIds = subCategoryIds;
            
+
 
            
             List<Service> output = new List<Service>();
@@ -97,7 +98,7 @@ namespace AnnonsService
                 {
                     return null;
                 }
-
+                
 
             }
 
@@ -163,7 +164,7 @@ namespace AnnonsService
         {
 
             Service output = new Service(serviceData);
-
+            
             return output;
 
         }
@@ -199,6 +200,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -235,10 +237,10 @@ namespace AnnonsService
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
-
-                    throw e;
+                    Log.Error("Error");
+                    return false;
 
                 }
             }
@@ -258,8 +260,8 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    Log.Error("Error");
+                    return false;
                 }
             }
 
@@ -302,7 +304,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -340,8 +342,8 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    Log.Error("Error");
+                    return false;
                 }        
             
         }
@@ -362,8 +364,8 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    Log.Error("Error");
+                    return null ;
                 }
         }
 
@@ -386,8 +388,8 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
-
-                    throw;
+                    Log.Error("Error");
+                    return false;
                 }
         }
 
@@ -454,6 +456,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -474,6 +477,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
             }
@@ -493,6 +497,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -529,6 +534,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -548,6 +554,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
 
@@ -568,6 +575,7 @@ namespace AnnonsService
                 }
                 catch (Exception)
                 {
+                    Log.Error("Error");
                     return false;
                 }
             }

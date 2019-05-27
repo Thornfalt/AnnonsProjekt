@@ -89,6 +89,9 @@ namespace AnnonsService
 
         [OperationContract]
         bool DeleteService(int id);
+        
+        [OperationContract]
+        bool IsAlive();
 
     }
     [DataContract]

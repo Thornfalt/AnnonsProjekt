@@ -121,6 +121,11 @@ namespace AnnonsService
                 return output;
             }
         }
+        
+        public bool IsAlive()
+        {
+            return true;
+        }
 
 
         public List<Service> Search(string searchString)

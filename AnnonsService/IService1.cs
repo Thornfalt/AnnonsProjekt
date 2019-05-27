@@ -13,7 +13,7 @@ namespace AnnonsService
     {
         [OperationContract]
 
-        bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId /*, int contractCreatorId*/);
+        bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId , int contractCreatorId);
 
         [OperationContract]
         bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);

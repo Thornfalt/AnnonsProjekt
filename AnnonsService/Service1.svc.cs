@@ -48,13 +48,51 @@ namespace AnnonsService
             return output;
         }
 
-
-
-
-        public List<ContractData> GetAllContractData()
+        public List<ContractStatus> GetContractStatusType()
         {
-            throw new NotImplementedException();
+           List<ContractStatus> contractStatuses = new List<ContractStatus>();
+
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                List<ContractStatusTypeData> temp = db.ContractStatusTypeData.ToList();
+
+                foreach (ContractStatusTypeData contractStatus in temp)
+                {
+                    contractStatuses.Add(new ContractStatus(contractStatus));
+                }
+            
+            }
+            return contractStatuses;
         }
+     
+
+        public List<Contract> GetAllContract()
+        {
+            using (ServiceDBModel db = new ServiceDBModel())
+            {
+                var contract = db.ContractData;
+
+                List<Contract> output = new List<Contract>();
+                output = ContractDataListToServiceList(contract.ToList());
+
+                return output;
+            }
+
+        }
+        private List<Contract> ContractDataListToServiceList(List<ContractData> contractDatas)
+        {
+            List<Contract> output = new List<Contract>();
+
+            foreach (ContractData contractData in contractDatas)
+            {
+                output.Add(new Contract(contractData));
+            }
+            return output;
+
+        }
+
+
+
 
         public List<Service> GetAllServiceData()
         {
@@ -585,5 +623,7 @@ namespace AnnonsService
                 }
             }
         }
+
+        
     }
 }

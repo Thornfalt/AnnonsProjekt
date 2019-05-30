@@ -16,6 +16,12 @@ namespace AnnonsService
         bool CreateContract(int serviceId, int counterpartId, int serviceOwnerId , int contractCreatorId);
 
         [OperationContract]
+        List<Contract> GetAllContract();
+
+        [OperationContract]
+        List<ContractStatus> GetContractStatusType();
+
+        [OperationContract]
         bool ChangeContractStatus(int serviceId, int counterpartId, int serviceOwnerId, int? serviceOwnerStatus, int? counterpartStatus);
 
         [OperationContract]
@@ -124,11 +130,20 @@ namespace AnnonsService
     [DataContract]
     public class ContractStatus
     {
+        
+
+        public ContractStatus(ContractStatusTypeData contractStatusTypeData)
+        {
+            Id = contractStatusTypeData.Id;
+            Name = contractStatusTypeData.Name;
+        }
+
         [DataMember]
         public int Id { get; set; }
         [DataMember]
         public string Name { get; set; }
     }
+   
 
     [DataContract]
     public class PriceRange
@@ -376,5 +391,6 @@ namespace AnnonsService
         //[DataMember]
         //public ICollection<ServiceStatusData> ServiceStatusData { get; set; }
     }
+
 
 }
